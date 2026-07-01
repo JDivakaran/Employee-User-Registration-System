@@ -3,10 +3,7 @@ package com.eurs.project.controller;
 import com.eurs.project.model.Employee;
 import com.eurs.project.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -18,6 +15,11 @@ public class EmployeeController {
     @PostMapping("/register")
     public String registerEmployee(@RequestBody Employee theEmployee){
         return employeeService.registerEmployee(theEmployee);
+    }
+
+    @GetMapping("/")
+    public String simple(){
+        return "yo";
     }
 
 }

@@ -5,6 +5,8 @@ import com.eurs.project.model.Employee;
 import com.eurs.project.repository.DepartmentRepository;
 import com.eurs.project.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +17,9 @@ public class EmployeeImplementation implements EmployeeService{
 
     @Autowired
     private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -27,7 +32,7 @@ public class EmployeeImplementation implements EmployeeService{
                 departmentRepository.findById(
                         theEmployee.getDepartment().getId()
                 ).orElseThrow();
-
+        theEmployee.setPassword(passwordEncoder.encode(theEmployee.getPassword()));
         theEmployee.setDepartment(dept);
         employeeRepository.save(theEmployee);
         return theEmployee.toString();
